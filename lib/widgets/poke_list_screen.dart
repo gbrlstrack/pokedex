@@ -29,7 +29,8 @@ class PokeListScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PokeDetailsScreen()));
+                            builder: (context) =>
+                                PokeDetailsScreen(poke.idPoke)));
                   },
                 ),
               );

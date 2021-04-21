@@ -76,4 +76,21 @@ class PokemonRepository {
     }
     return listaPokes;
   }
+
+  Future<Pokemon> getPokemonById(String id) async {
+    final url = Uri.https('pokeapi.co', '/api/v2/pokemon/$id');
+    final response = await http.get(url);
+    Map<String, dynamic> result = jsonDecode(response.body);
+    log(result['types'].toString());
+    final List<Type> pokeTypes = (result['types'] as List)
+        .map((item) => parseTypes(item['type']['name'].toString()))
+        .toList();
+    log(pokeTypes.toString());
+    Pokemon pokemon = Pokemon(
+        idPoke: result['id'].toString(),
+        linkImg: result['sprites']['front_default'],
+        nomePoke: capitalize(result['name']),
+        tipos: pokeTypes);
+    return pokemon;
+  }
 }
